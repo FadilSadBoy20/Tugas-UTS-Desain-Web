@@ -13,51 +13,68 @@ const urlsToCache = [
   "logowebsite.png"
 ];
 
-// INSTALL — cache semua file di atas
+// INSTALL — cache resources, tapi toleran jika ada yang gagal
 self.addEventListener("install", (event) => {
-  console.log("📦 Menginstal Service Worker dan menyimpan cache...");
+  console.log("📦 Installing Service Worker — caching resources...");
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
-      .then(() => self.skipWaiting())
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      for (const url of urlsToCache) {
+        try {
+          const res = await fetch(url);
+          if (res && res.ok) {
+            await cache.put(url, res.clone());
+            console.log("✅ Cached", url);
+          } else {
+            console.warn("⚠️ Not cached (bad response):", url);
+          }
+        } catch (err) {
+          console.warn("⚠️ Failed to fetch/cache", url, err);
+        }
+      }
+      await self.skipWaiting();
+    })()
   );
 });
 
-// AKTIVASI — hapus cache lama
+// ACTIVATE — hapus cache lama jika ada
 self.addEventListener("activate", (event) => {
-  console.log("⚙️ Mengaktifkan Service Worker baru...");
+  console.log("⚙️ Activating new Service Worker...");
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
+    caches.keys().then((keys) =>
+      Promise.all(keys
+        .filter((k) => k !== CACHE_NAME)
+        .map((k) => caches.delete(k))
       )
     )
   );
   self.clients.claim();
 });
 
-// FETCH — gunakan cache jika offline
+// FETCH — network-first, fallback ke cache; untuk navigation fallback ke offline.html
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Simpan versi terbaru ke cache
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
-        return response;
-      })
-      .catch(async () => {
-        // Jika gagal (offline), ambil dari cache
-        const cachedResponse = await caches.match(event.request);
-        if (cachedResponse) return cachedResponse;
+    (async () => {
+      try {
+        const networkResponse = await fetch(event.request);
+        // simpan update di cache (non-blocking)
+        const cache = await caches.open(CACHE_NAME);
+        cache.put(event.request, networkResponse.clone()).catch(()=>{});
+        return networkResponse;
+      } catch (err) {
+        // jaringan gagal -> cari di cache
+        const cached = await caches.match(event.request);
+        if (cached) return cached;
 
-        // Jika tidak ada di cache (halaman baru), tampilkan offline.html
+        // jika navigasi document (halaman), kembalikan offline.html
         if (event.request.mode === "navigate" || event.request.destination === "document") {
-          return caches.match("offline.html");
+          const offlineResp = await caches.match("offline.html");
+          if (offlineResp) return offlineResp;
         }
-      })
+
+        // terakhir: gagal total
+        return new Response("Offline and no cached version available.", { status: 503, statusText: "Service Unavailable" });
+      }
+    })()
   );
 });
-
