@@ -1,6 +1,6 @@
 const CACHE_NAME = "fadilweb-cache-v3";
 const urlsToCache = [
-  "./",
+  ".",
   "index.html",
   "About.html",
   "Contact.html",
@@ -55,4 +55,5 @@ self.addEventListener("fetch", (event) => {
       )
   );
 });
+
 
