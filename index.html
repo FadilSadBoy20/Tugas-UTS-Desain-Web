@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
 <head> 
-  <link rel="icon" href="images/icons/logowebsite.png" type="image/png">
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#FF7E3D">
-<script src="register-sw.js"></script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>index.html</title>
+
+  <title>FadilWeb | Home</title>
+
+  <!-- Ikon Website -->
+  <link rel="icon" href="./images/icons/logowebsite.png" type="image/png">
+
+  <!-- Manifest untuk PWA -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#FF7E3D">
+
+  <!-- Daftarkan Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('./service-worker.js')
+          .then(reg => console.log('✅ Service Worker terdaftar:', reg.scope))
+          .catch(err => console.error('❌ SW gagal didaftarkan:', err));
+      });
+    }
+  </script>
+
+  <!-- Gaya Tampilan -->
   <style>
     :root {
       --senja-ungu: #2E1A47;
@@ -23,10 +40,7 @@
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: url("images/senja3.jpg");
-      background-size: cover;      
-      background-position: center; 
-      background-attachment: fixed; 
+      background: url("./images/senja3.jpg") center/cover fixed no-repeat;
       color: var(--putih);
       min-height: 100vh;
       display: flex;
@@ -88,16 +102,15 @@
     }
   </style>
 </head>
+
 <body>
 
-  <header>
-     Selamat Datang di Website Saya 
-  </header>
+  <header>Selamat Datang di Website Saya</header>
 
   <nav>
-    <a href="index.html" id="nav-home">Home</a>
-    <a href="About.html" id="nav-about" target="_blank">About Me</a>
-    <a href="Contact.html" id="nav-contact" target="_blank">My Contact</a>
+    <a href="./index.html" id="nav-home">Home</a>
+    <a href="./About.html" id="nav-about">About Me</a>
+    <a href="./Contact.html" id="nav-contact">My Contact</a>
   </nav>
 
   <div class="content">
@@ -105,15 +118,12 @@
       <h1>Selamat Datang di Website Saya</h1>
       <p>
         Website ini saya buat untuk memenuhi tugas kuliah saya pada mata kuliah <b>Desain Web</b>.<br>
-        Terimakasiihhh &lt;3
+        Terima kasih ❤️
       </p>
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 Website ini sudah menjadi website PWA.
-  </footer>
+  <footer>&copy; 2025 Website ini sudah menjadi Progressive Web App (PWA).</footer>
 
 </body>
 </html>
-
