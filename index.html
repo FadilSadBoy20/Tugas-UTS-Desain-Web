@@ -1,110 +1,39 @@
 <!DOCTYPE html>
 <html lang="id">
-<head> 
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>FadilWeb | Home</title>
 
-  <!-- Ikon Website -->
+  <!-- Ikon & Manifest -->
   <link rel="icon" href="logowebsite.png" type="image/png">
-
-  <!-- Manifest untuk PWA -->
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#FF7E3D">
-
-  <!-- Daftarkan Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('./service-worker.js')
-          .then(reg => console.log('✅ Service Worker terdaftar:', reg.scope))
-          .catch(err => console.error('❌ SW gagal didaftarkan:', err));
-      });
-    }
-  </script>
-
-  <!-- Gaya Tampilan -->
+  
+  <!-- Styles (sama seperti sebelumnya, hanya path background dijaga konsisten) -->
   <style>
-    :root {
-      --senja-ungu: #2E1A47;
-      --senja-merah: #FF4500;
-      --senja-oranye: #FF7E3D;
-      --senja-kuning: #FFD580;
-      --senja-biru: #1E90FF;
-      --senja-pink: #FF69B4;
-      --putih: #fff;
-    }
-
+    :root { --senja-ungu:#2E1A47; --senja-merah:#FF4500; --senja-oranye:#FF7E3D; --senja-kuning:#FFD580; --senja-biru:#1E90FF; --senja-pink:#FF69B4; --putih:#fff; }
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: url("./images/senja3.jpg") center/cover fixed no-repeat;
+      background: url("images/senja3.jpg") center/cover no-repeat;
       color: var(--putih);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
-
-    header {
-      background: linear-gradient(90deg, var(--senja-merah), var(--senja-oranye), var(--senja-pink));
-      padding: 20px;
-      text-align: center;
-      color: var(--senja-ungu);
-      font-size: 28px;
-      font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    nav {
-      background-color: rgba(46, 26, 71, 0.8);
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px;
-    }
-
-    nav a {
-      color: var(--senja-kuning);
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: var(--senja-pink);
-    }
-
-    .content {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 600px;
-      padding: 30px;
-      background: rgba(255, 126, 61, 0.85);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      text-align: center;
-      color: var(--putih);
-    }
-
-    footer {
-      background: linear-gradient(90deg, var(--senja-ungu), var(--senja-biru), var(--senja-pink));
-      text-align: center;
-      padding: 15px;
-      color: var(--senja-kuning);
-    }
+    header{ background: linear-gradient(90deg,var(--senja-merah),var(--senja-oranye),var(--senja-pink)); padding:20px; text-align:center; color:var(--senja-ungu); font-size:28px; font-weight:bold; box-shadow:0 2px 10px rgba(0,0,0,0.5); }
+    nav{ background-color: rgba(46,26,71,0.8); display:flex; justify-content:center; gap:20px; padding:10px; }
+    nav a{ color:var(--senja-kuning); text-decoration:none; font-weight:bold; transition:0.3s; }
+    nav a:hover{ color:var(--senja-pink); }
+    .content{ flex:1; display:flex; justify-content:center; align-items:center; padding:20px; }
+    .container{ max-width:600px; padding:30px; background: rgba(255,126,61,0.85); border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.6); text-align:center; color:var(--putih); }
+    footer{ background: linear-gradient(90deg,var(--senja-ungu),var(--senja-biru),var(--senja-pink)); text-align:center; padding:15px; color:var(--senja-kuning); }
+    /* small offline banner */
+    #offline-banner { position:fixed; left:16px; bottom:16px; background:rgba(0,0,0,0.7); color:#fff; padding:8px 12px; border-radius:10px; display:none; z-index:9999; font-weight:600; }
   </style>
 </head>
-
 <body>
-
   <header>Selamat Datang di Website Saya</header>
 
   <nav>
@@ -116,15 +45,28 @@
   <div class="content">
     <div class="container" id="home">
       <h1>Selamat Datang di Website Saya</h1>
-      <p>
-        Website ini saya buat untuk memenuhi tugas kuliah saya pada mata kuliah <b>Desain Web</b>.<br>
-        Terima kasih ❤️
-      </p>
+      <p>Website ini saya buat untuk memenuhi tugas kuliah saya pada mata kuliah <b>Desain Web</b>.<br>Terima kasih ❤️</p>
     </div>
   </div>
 
   <footer>&copy; 2025 Website ini sudah menjadi Progressive Web App (PWA).</footer>
 
+  <!-- offline banner kecil -->
+  <div id="offline-banner">⚠️ Anda sedang offline</div>
+
+  <!-- Daftarkan Service Worker (eksternal) -->
+  <script src="register-sw.js"></script>
+
+  <!-- Tampilkan banner ketika offline/online -->
+  <script>
+    const banner = document.getElementById('offline-banner');
+    function updateOnlineStatus() {
+      if (!navigator.onLine) { banner.style.display = 'block'; }
+      else { banner.style.display = 'none'; }
+    }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+  </script>
 </body>
 </html>
-
