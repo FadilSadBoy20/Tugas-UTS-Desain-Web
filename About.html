@@ -42,6 +42,13 @@
   <footer>&copy; 2025 Website ini sudah menjadi website PWA.</footer>
 
   <!-- Daftarkan service worker -->
-  <script src="register-sw.js"></script>
+  <script src="register-sw.js">
+        document.getElementById("nav-about").addEventListener("click", function(e){
+      e.preventDefault();
+      document.body.classList.add("slide-out-left");
+      setTimeout(()=>{ window.location.href = "About.html"; }, 500);
+    });
+  </script>
 </body>
 </html>
+
