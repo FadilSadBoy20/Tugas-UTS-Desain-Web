@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | FadilWeb</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FadilWeb | Contact</title>
 
-  <link rel="icon" href="logowebsite.png" type="image/png">
-  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#FF7E3D">
+  <link rel="icon" href="images/icons/logowebsite.png" type="image/png">
+  <link rel="manifest" href="./manifest.json">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    :root { --senja-ungu:#2E1A47; --senja-merah:#FF4500; --senja-oranye:#FF7E3D; --senja-kuning:#FFD580; --putih:#fff; }
-    body { margin:0; font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: url("images/senja2.jpg") center/cover no-repeat; color:var(--putih); min-height:100vh; display:flex; flex-direction:column; }
-    header{ background: linear-gradient(90deg,var(--senja-merah),var(--senja-oranye),#FF69B4); padding:20px; text-align:center; color:var(--senja-ungu); font-size:28px; font-weight:bold; }
+    :root{ --senja-ungu:#2E1A47; --senja-merah:#FF4500; --senja-oranye:#FF7E3D; --senja-kuning:#FFD580; --putih:#fff; }
+    body{ margin:0; font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: url("images/unand.jpeg") center/cover no-repeat; color:var(--putih); min-height:100vh; display:flex; flex-direction:column; }
+    header{ background: linear-gradient(90deg,var(--senja-merah),var(--senja-oranye),var(--senja-ungu)); padding:20px; text-align:center; color:var(--senja-ungu); font-size:28px; font-weight:bold; }
     nav{ background-color: rgba(46,26,71,0.8); display:flex; justify-content:center; gap:20px; padding:10px; }
     nav a{ color:var(--senja-kuning); text-decoration:none; font-weight:bold; }
-    .content{ flex:1; display:flex; justify-content:center; align-items:center; padding:20px; }
-    .container{ max-width:800px; padding:30px; background: rgba(255,126,61,0.85); border-radius:12px; }
+    .content{ flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:40px; gap:30px; }
+    .contact-container{ display:flex; justify-content:space-between; align-items:center; background: rgba(255,126,61,0.85); border-radius:15px; padding:40px; max-width:900px; width:100%; }
     footer{ background: linear-gradient(90deg,var(--senja-ungu),#1E90FF,#FF69B4); text-align:center; padding:15px; color:var(--senja-kuning); }
   </style>
 </head>
 <body>
-  <header>This is Me</header>
+  <header>My Contact</header>
 
   <nav>
     <a href="./index.html" id="nav-home">Home</a>
@@ -30,18 +32,43 @@
   </nav>
 
   <div class="content">
-    <div class="container">
-      <ol>
-        <li>Lahir 20 Juni 2006 di desa Tiku, anak ke-8 dari 8 bersaudara (bungsu).</li>
-        <li>Sekolah: SDN 01 Pasar Tiku, MTsN 5 Agam, SMAN 1 Tanjung Mutiara, kini di <b>Unand Informatika</b>.</li>
-        <li>Pernah ikut: HIPMI PT UNAND, HMIF (HRD), FESTIKA 2025, LKMM-TD 2025.</li>
-      </ol>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2>Hubungi Saya</h2>
+        <div class="contact-item"><a href="https://wa.me/6282311488810" target="_blank"><i class="fab fa-whatsapp"></i> 082311488810</a></div>
+        <div class="contact-item"><a href="https://instagram.com/fadilasril_20" target="_blank"><i class="fab fa-instagram"></i> @fadilasril_20</a></div>
+        <div class="contact-item"><a href="mailto:fadilkedua03@gmail.com"><i class="fas fa-envelope"></i> fadilkedua03@gmail.com</a></div>
+      </div>
+
+      <div class="contact-photo">
+        <div class="circle-photo"><img src="images/saya1.jpg" alt="Foto Saya" style="width:200px;height:200px;object-fit:cover;border-radius:50%"></div>
+      </div>
+    </div>
+
+    <button class="toggle-btn" id="toggleForm">Beri Pertanyaan</button>
+
+    <div class="form-container" id="formContainer">
+      <h2>Kirim Pesan</h2>
+      <form id="contactForm">
+        <div class="form-group"><label for="nama">Nama</label><input type="text" id="nama" name="nama" required></div>
+        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+        <div class="form-group"><label for="kategori">Kategori Pesan</label>
+          <select id="kategori" name="kategori" required>
+            <option value="">-- Pilih Kategori --</option>
+            <option value="saran">Saran</option>
+            <option value="kritik">Kritik</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="pesan">Pesan</label><textarea id="pesan" name="pesan" required></textarea></div>
+        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Kirim</button>
+      </form>
     </div>
   </div>
 
-  <footer>&copy; 2025 Website ini sudah menjadi website PWA.</footer>
+  <footer>&copy; 2025 Website ini dibuat dengan ❤️ oleh Fadil.</footer>
 
-  <!-- Daftarkan service worker -->
+  <!-- Daftarkan Service Worker -->
   <script src="register-sw.js"></script>
 </body>
 </html>
