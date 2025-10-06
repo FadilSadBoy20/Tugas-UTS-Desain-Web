@@ -1,7 +1,7 @@
 {
   "name": "FadilWeb",
   "short_name": "FadilWeb",
-  "description": "Website pribadi bertema langit senja milik Fadil.",
+  "description": "Website ini sudah menjadi website PWA.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#FF7E3D",
@@ -20,5 +20,3 @@
     }
   ]
 }
-
-
