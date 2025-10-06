@@ -1,148 +1,72 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="logowebsite.png" type="image/png">
-<meta name="theme-color" content="#FF7E3D">
-<script src="service-worker.js"></script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About.html</title>
-  <style>
-    :root {
-      --senja-ungu: #2E1A47;
-      --senja-merah: #FF4500;
-      --senja-oranye: #FF7E3D;
-      --senja-kuning: #FFD580;
-      --senja-biru: #1E90FF;
-      --senja-pink: #FF69B4;
-      --putih: #fff;
-    }
+  <title>FadilWeb | Home</title>
 
+  <!-- Ikon & Manifest -->
+  <link rel="icon" href="images/icons/logowebsite.png" type="image/png">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#FF7E3D">
+  
+  <!-- Styles (sama seperti sebelumnya, hanya path background dijaga konsisten) -->
+  <style>
+    :root { --senja-ungu:#2E1A47; --senja-merah:#FF4500; --senja-oranye:#FF7E3D; --senja-kuning:#FFD580; --senja-biru:#1E90FF; --senja-pink:#FF69B4; --putih:#fff; }
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: url("./images/senja2.jpg") no-repeat center center;
-      background-size: cover;
-      background-attachment: scroll;
-      background-position: center;
+      background: url("images/senja3.jpg") center/cover no-repeat;
       color: var(--putih);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: transform 0.5s ease, opacity 0.5s ease;
     }
-
-    .slide-out-left { transform: translateX(-100%); opacity: 0; }
-    .slide-out-right { transform: translateX(100%); opacity: 0; }
-
-    header {
-      background: linear-gradient(90deg, var(--senja-merah), var(--senja-oranye), var(--senja-pink));
-      padding: 20px;
-      text-align: center;
-      color: var(--senja-ungu);
-      font-size: 28px;
-      font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    nav {
-      background-color: rgba(46, 26, 71, 0.8);
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px;
-    }
-
-    nav a {
-      color: var(--senja-kuning);
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover { color: var(--senja-pink); }
-
-    .content {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 800px;
-      padding: 30px;
-      background: rgba(255, 126, 61, 0.85);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    }
-
-    .container p, .container li {
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--putih);
-    }
-
-    .container ol, .container ul { margin: 10px 0 10px 25px; }
-
-    footer {
-      background: linear-gradient(90deg, var(--senja-ungu), var(--senja-biru), var(--senja-pink));
-      text-align: center;
-      padding: 15px;
-      color: var(--senja-kuning);
-    }
+    header{ background: linear-gradient(90deg,var(--senja-merah),var(--senja-oranye),var(--senja-pink)); padding:20px; text-align:center; color:var(--senja-ungu); font-size:28px; font-weight:bold; box-shadow:0 2px 10px rgba(0,0,0,0.5); }
+    nav{ background-color: rgba(46,26,71,0.8); display:flex; justify-content:center; gap:20px; padding:10px; }
+    nav a{ color:var(--senja-kuning); text-decoration:none; font-weight:bold; transition:0.3s; }
+    nav a:hover{ color:var(--senja-pink); }
+    .content{ flex:1; display:flex; justify-content:center; align-items:center; padding:20px; }
+    .container{ max-width:600px; padding:30px; background: rgba(255,126,61,0.85); border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.6); text-align:center; color:var(--putih); }
+    footer{ background: linear-gradient(90deg,var(--senja-ungu),var(--senja-biru),var(--senja-pink)); text-align:center; padding:15px; color:var(--senja-kuning); }
+    /* small offline banner */
+    #offline-banner { position:fixed; left:16px; bottom:16px; background:rgba(0,0,0,0.7); color:#fff; padding:8px 12px; border-radius:10px; display:none; z-index:9999; font-weight:600; }
   </style>
 </head>
 <body>
-  <header>This is Me</header>
+  <header>Selamat Datang di Website Saya</header>
 
   <nav>
-    <a href="index.html" id="nav-home">Home</a>
-    <a href="About.html" id="nav-about">About Me</a>
-    <a href="Contact.html" id="nav-contact">My Contact</a>
+    <a href="./index.html" id="nav-home">Home</a>
+    <a href="./About.html" id="nav-about">About Me</a>
+    <a href="./Contact.html" id="nav-contact">My Contact</a>
   </nav>
 
   <div class="content">
-    <div class="container">
-      <ol>
-        <li>Lahir 20 Juni 2006 di desa Tiku, anak ke-8 dari 8 bersaudara (bungsu).</li>
-        <li>Sekolah: SDN 01 Pasar Tiku, MTsN 5 Agam, SMAN 1 Tanjung Mutiara, kini di <b>Unand Informatika</b>.</li>
-        <li>Pernah ikut: HIPMI PT UNAND, HMIF (HRD), FESTIKA 2025, LKMM-TD 2025.</li>
-      </ol>
+    <div class="container" id="home">
+      <h1>Selamat Datang di Website Saya</h1>
+      <p>Website ini saya buat untuk memenuhi tugas kuliah saya pada mata kuliah <b>Desain Web</b>.<br>Terima kasih ❤️</p>
     </div>
   </div>
 
-  <footer>&copy; 2025 Website ini sudah menjadi website PWA.</footer>
+  <footer>&copy; 2025 Website ini sudah menjadi Progressive Web App (PWA).</footer>
 
+  <!-- offline banner kecil -->
+  <div id="offline-banner">⚠️ Anda sedang offline</div>
+
+  <!-- Daftarkan Service Worker (eksternal) -->
+  <script src="register-sw.js"></script>
+
+  <!-- Tampilkan banner ketika offline/online -->
   <script>
-    const currentPage = "About.html";
-
-  document.getElementById("nav-home").addEventListener("click", function(e) {
-    e.preventDefault();
-    window.open("index.html", "_self");
-    window.close(); // tutup tab About
-  });
-
-  document.getElementById("nav-contact").addEventListener("click", function(e) {
-    e.preventDefault();
-    document.body.classList.add("slide-out-left"); // About -> Contact geser kiri
-    setTimeout(() => {
-      window.location.href = "Contact.html";
-    }, 500);
-  });
-
-  window.addEventListener('offline', () => {
-    alert("⚠️ Anda sedang offline. Beberapa fitur mungkin tidak tersedia.");
-  });
-  window.addEventListener('online', () => {
-    console.log("✅ Koneksi internet kembali tersambung.");
-  });
-
+    const banner = document.getElementById('offline-banner');
+    function updateOnlineStatus() {
+      if (!navigator.onLine) { banner.style.display = 'block'; }
+      else { banner.style.display = 'none'; }
+    }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
   </script>
 </body>
 </html>
-
-
