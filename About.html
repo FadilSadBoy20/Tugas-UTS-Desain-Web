@@ -53,8 +53,18 @@
       e.preventDefault();
       window.location.href = "index.html";
     });
+    document.getElementById("nav-about").addEventListener("click", function(e) {
+    e.preventDefault();
+    window.open("About.html", "_blank"); // buka tab baru
+  });
+
+  document.getElementById("nav-contact").addEventListener("click", function(e) {
+    e.preventDefault();
+    window.open("Contact.html", "_blank"); // buka tab baru
+  });
   </script>
 </body>
 </html>
+
 
 
