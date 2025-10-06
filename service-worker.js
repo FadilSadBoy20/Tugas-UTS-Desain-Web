@@ -10,7 +10,7 @@ const urlsToCache = [
   "images/unand.jpeg",
   "images/saya1.jpg",
   "manifest.json",
-  "images/icons/Logo-Website.png"
+  "images/icons/logowebsite.png"
 ];
 
 // Install — cache semua file
@@ -55,3 +55,4 @@ self.addEventListener("fetch", (event) => {
       )
   );
 });
+
