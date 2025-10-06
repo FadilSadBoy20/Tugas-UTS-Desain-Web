@@ -1,0 +1,22 @@
+{
+  "name": "FadilWeb",
+  "short_name": "FadilWeb",
+  "description": "Website pribadi bertema langit senja milik Fadil.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FF7E3D",
+  "theme_color": "#FF7E3D",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/icons/Logo-Website.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icons/Logo-Website.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
